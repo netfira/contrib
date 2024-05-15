@@ -665,12 +665,12 @@ func ({{ $r }} *{{ $name }}) ToEdge(order *{{ $order }}) *{{ $edge }} {
 	if limit != nil && *limit != 0 {
 		{{ $r }}.Limit(*limit)
 	}
-	*limit = paginateLimit(first, last)
-	if *limit != 0 {
-		{{ $r }}.Limit(*limit)
+	pageLimit = paginateLimit(first, last)
+	if pageLimit != 0 {
+		{{ $r }}.Limit(pageLimit)
 	}
 	if field := collectedField(ctx, edgesField, nodeField); field != nil {
-		if err := {{ $r }}.collectField(ctx, *limit == 1, graphql.GetOperationContext(ctx), *field, []string{edgesField, nodeField}); err != nil {
+		if err := {{ $r }}.collectField(ctx, false, graphql.GetOperationContext(ctx), *field, []string{edgesField, nodeField}); err != nil {
 			return nil, err
 		}
 	}
