@@ -665,7 +665,7 @@ func ({{ $r }} *{{ $name }}) ToEdge(order *{{ $order }}) *{{ $edge }} {
 	if limit != nil && *limit != 0 {
 		{{ $r }}.Limit(*limit)
 	}
-	pageLimit = paginateLimit(first, last)
+	pageLimit := paginateLimit(first, last)
 	if pageLimit != 0 {
 		{{ $r }}.Limit(pageLimit)
 	}
